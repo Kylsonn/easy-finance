@@ -1,11 +1,17 @@
 package com.kbsystems.finance.domain;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user_data")
@@ -23,12 +29,15 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotBlank
 	private String username;
-	
+
 	@NotBlank
 	private String password;
+
+	@OneToMany(mappedBy = "user")
+	private List<Account> accounts;
 
 	public Long getId() {
 		return id;
@@ -52,6 +61,19 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
+	}
+	
+	@JsonIgnore
+	public boolean isNew() {
+		return this.id == null;
 	}
 
 	@Override
@@ -78,6 +100,5 @@ public class User {
 			return false;
 		return true;
 	}
-	
-	
+
 }
