@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
@@ -21,6 +23,7 @@ import com.kbsystems.finance.service.exception.BusinessException;
 import com.kbsystems.finance.service.exception.ResourceException;
 
 @RestControllerAdvice
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class ApiExceptionHandler {
 	private final MessageSource apiErrorMessageSource;
 	private static final String NO_AVAILABLE_MESSAGE = "no message available";
