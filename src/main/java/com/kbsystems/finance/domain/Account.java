@@ -1,8 +1,5 @@
 package com.kbsystems.finance.domain;
 
-import java.math.BigDecimal;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,8 +12,6 @@ public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "opening_balance")
-	private BigDecimal openingBalance;
 	@NotBlank
 	private String name;
 	private String comment;
@@ -29,14 +24,6 @@ public class Account {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public BigDecimal getOpeningBalance() {
-		return openingBalance;
-	}
-
-	public void setOpeningBalance(BigDecimal openingBalance) {
-		this.openingBalance = openingBalance;
 	}
 
 	public String getName() {

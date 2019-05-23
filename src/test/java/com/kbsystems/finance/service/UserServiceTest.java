@@ -35,8 +35,8 @@ public class UserServiceTest {
 		UserBuilder userBuilder = new UserBuilder();
 		userBuilder.setPassword("Abcd1234").setUsername("Kylsonn");
 		
-		when(userRepository.findByUsername("Kylsonn")).thenReturn(Optional.of(userBuilder.build()));
-		userService.create(userBuilder.build());
+		when(userRepository.findByUsername("Kylsonn")).thenReturn(Optional.of(userBuilder.toUser()));
+		userService.create(userBuilder.toUser());
 	}
 	
 	@Test(expected = BusinessException.class)
@@ -45,18 +45,18 @@ public class UserServiceTest {
 		userBuilder.setPassword("a").setUsername("Kylsonn");
 
 		when(userRepository.findByUsername("Kylsonn")).thenReturn(Optional.ofNullable(null));
-		userService.create(userBuilder.build());
+		userService.create(userBuilder.toUser());
 	}	
 	
 	@Test
 	public void create_new_user() {
 		UserBuilder userBuilder = new UserBuilder();
 		userBuilder.setPassword("Abcd1234").setUsername("Kylsonn");
-		User user = userBuilder.build();
+		User user = userBuilder.toUser();
 		
 		UserBuilder userBuilderSaved = new UserBuilder();
 		userBuilderSaved.setPassword("Abcd1234").setUsername("Kylsonn").setId(1L);
-		User userSaved = userBuilderSaved.build();
+		User userSaved = userBuilderSaved.toUser();
 		
 		when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.ofNullable(null));
 		when(userRepository.save(user)).thenReturn(userSaved);

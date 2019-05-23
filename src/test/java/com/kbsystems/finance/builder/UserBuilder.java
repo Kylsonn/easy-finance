@@ -19,7 +19,7 @@ public class UserBuilder {
 		user.setId(id);
 		return this;
 	}
-	public User build() {
+	public User toUser() {
 		return user;
 	}
 }
